@@ -18,6 +18,7 @@ package com.hazelcast.jca;
 
 import com.hazelcast.config.Config;
 import com.hazelcast.core.ClientService;
+import com.hazelcast.core.ICacheManager;
 import com.hazelcast.core.Cluster;
 import com.hazelcast.core.DistributedObject;
 import com.hazelcast.core.DistributedObjectListener;
@@ -44,6 +45,7 @@ import com.hazelcast.core.TransactionalMap;
 import com.hazelcast.core.TransactionalMultiMap;
 import com.hazelcast.core.TransactionalQueue;
 import com.hazelcast.core.TransactionalSet;
+import com.hazelcast.durableexecutor.DurableExecutorService;
 import com.hazelcast.logging.LoggingService;
 import com.hazelcast.mapreduce.JobTracker;
 import com.hazelcast.quorum.QuorumService;
@@ -178,6 +180,11 @@ public class HazelcastConnectionImpl implements HazelcastConnection {
     @Override
     public IExecutorService getExecutorService(String name) {
         return getHazelcastInstance().getExecutorService(name);
+    }
+
+    @Override
+    public DurableExecutorService getDurableExecutorService(String s) {
+        return getHazelcastInstance().getDurableExecutorService(s);
     }
 
     @Override
@@ -338,6 +345,16 @@ public class HazelcastConnectionImpl implements HazelcastConnection {
             throw ExceptionUtil.rethrow(e);
         }
     }
+
+    @Override
+    public ICacheManager getCacheManager() {
+        return getHazelcastInstance().getCacheManager();
+    }
+//
+//    @Override
+//    public CardinalityEstimator getCardinalityEstimator(String name) {
+//        return getHazelcastInstance().getCardinalityEstimator(name);
+//    }
 
     // unsupported operations
 
