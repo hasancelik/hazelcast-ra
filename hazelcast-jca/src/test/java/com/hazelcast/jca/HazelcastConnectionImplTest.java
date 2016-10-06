@@ -64,11 +64,12 @@ public class HazelcastConnectionImplTest extends HazelcastTestSupport {
 
     private HazelcastInstance hz;
     private HazelcastConnectionImpl connection;
+    private ManagedConnectionImpl managedConnection;
 
     @Before
     public void setup() {
         hz = createHazelcastInstance();
-        ManagedConnectionImpl managedConnection = mock(ManagedConnectionImpl.class);
+        managedConnection = mock(ManagedConnectionImpl.class);
         when(managedConnection.getHazelcastInstance()).thenReturn(hz);
         connection = new HazelcastConnectionImpl(managedConnection, null);
     }

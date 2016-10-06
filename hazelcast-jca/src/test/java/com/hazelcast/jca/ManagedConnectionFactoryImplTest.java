@@ -43,6 +43,7 @@ import static org.mockito.Mockito.when;
 public class ManagedConnectionFactoryImplTest extends HazelcastTestSupport {
 
     private ManagedConnectionFactory connectionFactory;
+    private ResourceAdapterImpl mockResourceAdapter;
 
     @Before
     public void setup() throws Exception {
@@ -67,7 +68,7 @@ public class ManagedConnectionFactoryImplTest extends HazelcastTestSupport {
 
     @Test
     public void testMatchExistingManagedConnection() throws ResourceException {
-        ResourceAdapterImpl mockResourceAdapter = mock(ResourceAdapterImpl.class);
+        mockResourceAdapter = mock(ResourceAdapterImpl.class);
         when(mockResourceAdapter.getHazelcastInstance()).thenReturn(null);
         ((ManagedConnectionFactoryImpl) connectionFactory).setResourceAdapter(mockResourceAdapter);
 
@@ -87,7 +88,7 @@ public class ManagedConnectionFactoryImplTest extends HazelcastTestSupport {
 
     @Test
     public void testShouldReturnNullWhenThereIsNoInstanceOfThisResourceAdapter() throws ResourceException {
-        ResourceAdapterImpl mockResourceAdapter = mock(ResourceAdapterImpl.class);
+        mockResourceAdapter = mock(ResourceAdapterImpl.class);
         when(mockResourceAdapter.getHazelcastInstance()).thenReturn(null);
         ((ManagedConnectionFactoryImpl) connectionFactory).setResourceAdapter(mockResourceAdapter);
 
