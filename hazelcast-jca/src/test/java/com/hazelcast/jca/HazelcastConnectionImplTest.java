@@ -46,17 +46,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
+import org.mockito.MockitoAnnotations;
 
+import javax.resource.spi.ConnectionRequestInfo;
 import javax.transaction.xa.XAResource;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 @RunWith(HazelcastSerialClassRunner.class)
 @Category(QuickTest.class)
@@ -64,12 +63,11 @@ public class HazelcastConnectionImplTest extends HazelcastTestSupport {
 
     private HazelcastInstance hz;
     private HazelcastConnectionImpl connection;
-    private ManagedConnectionImpl managedConnection;
 
     @Before
     public void setup() {
         hz = createHazelcastInstance();
-        managedConnection = mock(ManagedConnectionImpl.class);
+        ManagedConnectionImpl managedConnection = mock(ManagedConnectionImpl.class);
         when(managedConnection.getHazelcastInstance()).thenReturn(hz);
         connection = new HazelcastConnectionImpl(managedConnection, null);
     }
